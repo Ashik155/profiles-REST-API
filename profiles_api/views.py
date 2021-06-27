@@ -2,7 +2,7 @@ from django.http import response
 from rest_framework.views import APIView
 from rest_framework.response import Response 
 from rest_framework import status
-
+from rest_framework import viewsets
 from profiles_api import serializer
 
 
@@ -50,3 +50,41 @@ class HelloApiView(APIView):
 
     def delete(self,request,pk=None):
         return Response({'Ofc':'delete'})
+
+
+
+
+class HelloViewSet(viewsets.ViewSet):
+    '''Just a testing a viewsets functionality '''
+
+    serializer_class = serializer.HelloSerializer
+    def list(self,request):
+        list_to_send = ['ashik','patel','numbr of difffrent func']
+        return Response({'msg':'hello','list ': list_to_send})
+    
+
+    def create(self,request):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            name = serializer.validated_data.get('name')
+            msg = f"hello {name}"
+            return Response({'msg':msg})
+        else:
+            return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+
+        
+    def retrieve(self,request, pk=None):
+        '''Handle Getting an object by it's ID'''
+        return Response({'method':'GET'})
+
+    def update(self,request, pk=None):
+        '''Handle updating an object by it's ID'''
+        return Response({'method':'PUT'})
+    
+    def partial_update(self,request,pk=None):
+        '''Handle partial updat of  an object by it's ID'''
+        return Response({'method':'PATCH'})
+
+    def destroy(self,request, pk=None):
+        '''handle deleting that object by its id '''
+        return Response ({'method':'DELETE'})
