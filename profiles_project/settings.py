@@ -25,7 +25,7 @@ SECRET_KEY = '6g=e96qk(%*iirnw0u_w)ob!n9lbcadex=qk-w44((9k3sz$tt'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -125,6 +125,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
+
+#have to mention that we need this model and not the default one model to 
+#authentication process.
 AUTH_USER_MODEL = 'profiles_api.UserProfile'
 
     

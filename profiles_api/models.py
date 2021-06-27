@@ -12,8 +12,10 @@ class UserProfileManager(BaseUserManager):
         '''creating a normal user'''
         if not email:
             raise ValueError("User Must have an email address....")
-        
+        #normalizing User...
         email = self.normalize_email(email)
+
+        #not sure why ?
         user =  self.model(email=email,name=name)
         user.set_password(password)
         user.save(using=self._db)
