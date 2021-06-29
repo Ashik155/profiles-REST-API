@@ -47,7 +47,7 @@ class UserProfile(AbstractBaseUser,PermissionsMixin):
     is_staff = models.BooleanField(default=False)
 
 
-    #idontknow why ?
+    #idontknow why ? ( this is being used while creating a new user using create function in searilizer)
     objects = UserProfileManager()
 
     #mentioning or here we are overrriding django user Authentication
