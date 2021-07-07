@@ -4,6 +4,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
+from django.conf import settings
+from django.db.models.deletion import CASCADE
 
 class UserProfileManager(BaseUserManager):
     '''Creating A normal User '''
@@ -68,3 +70,20 @@ class UserProfile(AbstractBaseUser,PermissionsMixin):
     def __str__(self):
         '''returnign String Representation of our user'''
         return self.email
+    
+
+
+class ProfileFeedItem(models.Model):
+    '''Creatign a feed from profile where user can create and update things'''
+
+    user_profile = models.ForeignKey(settings.AUTH_USER_MODEL,
+    on_delete=models.CASCADE)
+
+    status_text = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+    def __str__(self):
+        '''returoing sgtring representation of this obj'''
+        return self.status_text
+        
